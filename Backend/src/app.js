@@ -1,6 +1,7 @@
 const express = require('express');
 const autoRoutes = require('./routes/auto.routes');
 const vendorRoutes = require('./routes/vendor.route');
+const clienteRoutes = require('./routes/cliente.routes');
 
 const app = express(); // Crea una instancia de la aplicación Express
 
@@ -11,6 +12,8 @@ app.use(express.json());
 app.use('/api/autos', autoRoutes);
 
 app.use('/api/vendedores', vendorRoutes) ;
+
+app.use('/api/clientes', clienteRoutes);
 
 // Manejador de rutas no encontradas (404)
 app.use((req, res) => {
