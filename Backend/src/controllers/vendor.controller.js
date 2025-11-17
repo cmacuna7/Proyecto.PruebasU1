@@ -14,14 +14,10 @@ function createVendor(req, res) {
         return res.status(400).json({ message: 'El email no es válido' });
 
     if (!phoneRegex.test(telefono))
-        return res.status(400).json({
-            message: 'El teléfono debe contener solo números y tener entre 7 y 15 dígitos'
-        });
+        return res.status(400).json({message: 'El teléfono debe contener solo números y tener entre 7 y 15 dígitos'});
 
     if (isNaN(comision) || comision < 0 || comision > 100)
-        return res.status(400).json({
-            message: 'La comisión debe ser un número entre 0 y 100'
-        });
+        return res.status(400).json({message: 'La comisión debe ser un número entre 0 y 100'});
 
     if (vendedores.some(v => v.email === email))
         return res.status(409).json({ message: 'El email ya está registrado' });
@@ -29,14 +25,7 @@ function createVendor(req, res) {
     if (vendedores.some(v => v.codigoEmpleado === codigoEmpleado))
         return res.status(409).json({ message: 'El código de empleado ya está registrado' });
 
-    const newVendedor = {
-        id: Date.now(),
-        name,
-        email,
-        telefono,
-        comision,
-        codigoEmpleado
-    };
+    const newVendedor = {id: Date.now(), name, email, telefono, comision, codigoEmpleado };
 
     vendedores.push(newVendedor);
     return res.status(201).json(newVendedor);
@@ -62,10 +51,8 @@ function getVendorById(req, res) {
 function updateVendor(req, res) {
     const id = parseInt(req.params.id);
     const { name, email, telefono, comision, codigoEmpleado } = req.body;
-
     const index = vendedores.findIndex(v => v.id === id);
-    if (index === -1)
-        return res.status(404).json({ message: 'Vendedor no encontrado' });
+    if (index === -1) return res.status(404).json({ message: 'Vendedor no encontrado' });
 
     const vendedor = vendedores[index];
 
@@ -73,30 +60,19 @@ function updateVendor(req, res) {
         return res.status(400).json({ message: 'El email no es válido' });
 
     if (telefono !== undefined && !phoneRegex.test(telefono))
-        return res.status(400).json({
-            message: 'El teléfono debe contener solo números y tener entre 7 y 15 dígitos'
-        });
+        return res.status(400).json({message: 'El teléfono debe contener solo números y tener entre 7 y 15 dígitos'});
 
     if (comision !== undefined && (isNaN(comision) || comision < 0 || comision > 100))
-        return res.status(400).json({
-            message: 'La comisión debe ser un número entre 0 y 100'
-        });
+        return res.status(400).json({message: 'La comisión debe ser un número entre 0 y 100'});
 
     if (email !== undefined && vendedores.some(v => v.email === email && v.id !== id))
         return res.status(409).json({ message: 'El email ya está registrado por otro vendedor' });
 
-    if (codigoEmpleado !== undefined &&
-        vendedores.some(v => v.codigoEmpleado === codigoEmpleado && v.id !== id))
+    if (codigoEmpleado !== undefined && vendedores.some(v => v.codigoEmpleado === codigoEmpleado && v.id !== id))
         return res.status(409).json({ message: 'El código de empleado ya está registrado' });
 
-    vendedores[index] = {
-        ...vendedor,
-        name: name ?? vendedor.name,
-        email: email ?? vendedor.email,
-        telefono: telefono ?? vendedor.telefono,
-        comision: comision ?? vendedor.comision,
-        codigoEmpleado: codigoEmpleado ?? vendedor.codigoEmpleado
-    };
+    vendedores[index] = {...vendedor, name: name ?? vendedor.name, email: email ?? vendedor.email, telefono: telefono ?? vendedor.telefono, comision: comision ?? vendedor.comision,
+        codigoEmpleado: codigoEmpleado ?? vendedor.codigoEmpleado};
 
     res.json(vendedores[index]);
 }
