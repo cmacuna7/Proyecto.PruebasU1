@@ -1,5 +1,11 @@
 const express = require('express');
+<<<<<<< HEAD
 let corsPkg;
+=======
+const autoRoutes = require('./routes/auto.routes');
+const vendorRoutes = require('./routes/vendor.route');
+const clienteRoutes = require('./routes/cliente.routes');
+>>>>>>> 88fa1acfddc4c6b498a61b959c87ed8137f1ed65
 
 const autoController = require('./controllers/auto.controller');
 // Añadimos nuevos controladores
@@ -26,9 +32,22 @@ if (corsPkg) {
 
 app.use(express.json());
 
+<<<<<<< HEAD
 // rutas básicas
 app.get('/', (req, res) => {
     res.json({ message: 'API Concesionarias - Backend activo' });
+=======
+// Rutas Base de cada modelo
+app.use('/api/autos', autoRoutes);
+
+app.use('/api/vendedores', vendorRoutes) ;
+
+app.use('/api/clientes', clienteRoutes);
+
+// Manejador de rutas no encontradas (404)
+app.use((req, res) => {
+  res.status(404).json({ message: 'Route not found' });
+>>>>>>> 88fa1acfddc4c6b498a61b959c87ed8137f1ed65
 });
 
 // Rutas para autos (usamos los métodos exportados en controllers/auto.controller.js)
