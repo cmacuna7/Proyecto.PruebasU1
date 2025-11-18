@@ -23,7 +23,7 @@ describe('API de Autos', () => {
 
     const res = await request(app).post('/autos').send(nuevoAuto);
 
-    expect(res.statusCode).toBe(201);
+    expect(res.statusCode).toBe(201); // Created
     expect(res.body).toHaveProperty('id');
     expect(res.body.marca).toBe('Toyota');
     expect(res.body.modelo).toBe('Corolla');

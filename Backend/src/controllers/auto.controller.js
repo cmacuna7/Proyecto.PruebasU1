@@ -6,26 +6,23 @@
 //    color
 //    numeroSerie
 // }
-// soporta atributos en inglés y español:
-// inglés:  { make, model, year, color, vin }
-// español: { marca, modelo, anio / año, color, placa / numeroSerie }
 const autos = [];
 
 // GET
-function getAllPatients(req, res) {
+function getAllAutos(req, res) {
     res.json(autos);
 }
 
 // POST
-function addnewPatient(req, res) {
+function addNewAuto(req, res) {
     const { marca, modelo, año, color, numeroSerie } = req.body;
 
-    // Validación básica de entrada (mensaje en español)
+    // Validación básica de entrada 
     if (!marca || !modelo || !año || !color || !numeroSerie) {
         return res.status(400).json({ message: 'Marca, Modelo, Año, Color y Número de Serie son requeridos' });
     }
 
-    // Creamos un objeto auto (propiedades en español)
+    // Creamos un objeto auto 
     const newAuto = {
         id: Date.now(), // ID usando Date.now()
         marca,
@@ -43,11 +40,12 @@ function addnewPatient(req, res) {
 }
 
 // PUT
-function updatePatient(req, res) {
+function updateAuto(req, res) {
     const { id } = req.params;
     const { marca, modelo, año, color, numeroSerie } = req.body;
 
-    const i = autos.findIndex(a => a.id == id);
+    // comparar usando Number(id) 
+    const i = autos.findIndex(a => a.id === Number(id));
     if (i === -1) return res.status(404).json({ message: 'Auto no encontrado' });
 
     if (marca !== undefined) autos[i].marca = marca;
@@ -60,15 +58,18 @@ function updatePatient(req, res) {
 }
 
 // DELETE
-function deletePatient(req, res) {
+function deleteAuto(req, res) {
     const { id } = req.params;
-  
-    const index = autos.findIndex(a => a.id === id);
-    if (index === -1) return res.status(404).json({ message: 'Auto no encontrado' });
+
+    // comparar usando Number(id) 
+    const index = autos.findIndex(a => a.id === Number(id));
+    if (index === -1) return res.status(404).json({ message: 'Auto no encontrado' }); 
+    //404: Auto no encontrado
 
     const deleted = autos.splice(index, 1);
 
     res.json(deleted[0]);
 }
 
-module.exports = { getAllPatients, addnewPatient, updatePatient, deletePatient };
+
+module.exports = { getAllAutos, addNewAuto, updateAuto, deleteAuto };

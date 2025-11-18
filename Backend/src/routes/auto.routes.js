@@ -1,18 +1,18 @@
 const express = require('express');
-const { getAllPatients, addnewPatient, updatePatient, deletePatient } = require('../controllers/auto.controller');
+const { getAllAutos, addNewAuto, updateAuto, deleteAuto } = require('../controllers/auto.controller');
 
 const router = express.Router();
 
 // Ruta GET para obtener todos los autos
-router.get('/', getAllPatients);
+router.get('/', getAllAutos);
 
 // Ruta POST para crear un nuevo auto
-router.post('/', addnewPatient);
+router.post('/', addNewAuto);
 
 // Ruta PUT para modificar un auto mediante su id
-router.put('/:id', updatePatient);
+router.put('/:id', updateAuto);
 
 // Ruta DELETE para eliminar un auto mediante su id
-router.delete('/:id', deletePatient);
+router.delete('/:id', deleteAuto);
 
 module.exports = router;
